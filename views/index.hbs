@@ -15,9 +15,16 @@
   </div>
 </form>
 
-{{#if newURL}}
+{{#if new_url}}
   <div class="input-group mb-3">
-    <input type="text" class="form-control" value="{{newURL}}" disabled/>
+    <label for="new-url">New URL : </label>
+    <input
+      type="text"
+      class="form-control"
+      value="{{new_url}}"
+      id="new-url"
+      disabled
+    />
     <button
       class="btn btn-outline-secondary"
       type="button"

@@ -6,7 +6,7 @@ const generateShortCode = require("./shortcode_generate");
 const ShortenURL = require("./models/shortenURL");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const SHORT_URL = "http://shortenURL.com/";
+const SERVER = `http://localhost:${PORT}/`;
 
 //連接資料庫
 if (process.env.NODE_ENV !== "production") {
@@ -39,18 +39,28 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+//輸入短網址後導回原網址
+app.get("/:path", (req, res) => {
+  const path = req.params.path;
+  ShortenURL.findOne({ path: path })
+    .lean()
+    .then((URL) =>res.redirect(URL.ori_url))
+    .catch((e) => console.log(e));
+});
+
+//轉換按鈕
 app.post("/shorten", (req, res) => {
   const ori_url = req.body.originalURL;
   const path = generateShortCode();
-  const newURL = SHORT_URL + path;
-  ShortenURL.create({ ori_url, path })
+  const new_url = SERVER + path;
+  ShortenURL.create({ ori_url, path, new_url })
     .then(() => {
-      res.render("index", { newURL });
+      res.render("index", { new_url });
     })
     .catch((e) => console.log(e));
 });
 
 //監聽伺服器
 app.listen(PORT, () => {
-  console.log(`The server is running on http://localhost:${PORT}`);
+  console.log(`The server is running on ${SERVER}`);
 });

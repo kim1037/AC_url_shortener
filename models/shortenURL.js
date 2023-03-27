@@ -10,5 +10,9 @@ const urlSchema = new Schema({
     type: String,
     required: true,
   },
+  new_url: {
+    type: String,
+    required: true,
+  },
 });
 module.exports = mongoose.model("ShortenURL", urlSchema);
