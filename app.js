@@ -39,24 +39,32 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//輸入短網址後導回原網址
-app.get("/:path", (req, res) => {
-  const path = req.params.path;
-  ShortenURL.findOne({ path: path })
-    .lean()
-    .then((URL) =>res.redirect(URL.ori_url))
-    .catch((e) => console.log(e));
-});
-
 //轉換按鈕
 app.post("/shorten", (req, res) => {
   const ori_url = req.body.originalURL;
   const path = generateShortCode();
   const new_url = SERVER + path;
-  ShortenURL.create({ ori_url, path, new_url })
-    .then(() => {
-      res.render("index", { new_url });
-    })
+  ShortenURL.findOne({ ori_url }).then((url) => {
+    if (url) {
+      //若已經存在相同的 ori_url，回傳該筆資料
+      res.render("index", { new_url: url.new_url, ori_url: url.ori_url });
+    } else {
+      //如果不存在，則創立一個新的
+      ShortenURL.create({ ori_url, path, new_url })
+        .then(() => {
+          res.render("index", { ori_url, new_url });
+        })
+        .catch((e) => console.log(e));
+    }
+  });
+});
+
+//輸入短網址後導回原網址
+app.get("/:path", (req, res) => {
+  const path = req.params.path;
+  ShortenURL.findOne({ path })
+    .lean()
+    .then((URL) => res.redirect(URL.ori_url))
     .catch((e) => console.log(e));
 });
 

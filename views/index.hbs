@@ -5,6 +5,7 @@
       class="form-control"
       name="originalURL"
       placeholder="enter an url"
+      value="{{ori_url}}"
       required
     />
     <button
@@ -16,8 +17,8 @@
 </form>
 
 {{#if new_url}}
+  <label for="new-url">New URL : </label>
   <div class="input-group mb-3">
-    <label for="new-url">New URL : </label>
     <input
       type="text"
       class="form-control"
