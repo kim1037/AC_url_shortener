@@ -5,6 +5,7 @@
       class="form-control"
       name="originalURL"
       placeholder="enter an url"
+      required
     />
     <button
       class="btn btn-outline-secondary"
@@ -14,4 +15,13 @@
   </div>
 </form>
 
-{{#if newURL}}Post test :{{newURL}}{{/if}}
+{{#if newURL}}
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" value="{{newURL}}" disabled/>
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      id="button-addon2"
+    >Copy</button>
+  </div>
+{{/if}}

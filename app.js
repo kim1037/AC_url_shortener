@@ -32,6 +32,8 @@ db.once("open", () => {
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: "hbs" }));
 app.set("view engine", "hbs");
 
+app.use(express.urlencoded({ extended: true }));
+
 //設定路由
 app.get("/", (req, res) => {
   res.render("index");
@@ -41,13 +43,11 @@ app.post("/shorten", (req, res) => {
   const ori_url = req.body.originalURL;
   const path = generateShortCode();
   const newURL = SHORT_URL + path;
-  console.log(ori_url);
-  res.render("index", { newURL });
-  // ShortenURL.create({ ori_url, path })
-  //   .then(() => {
-  //     res.render("index", { newURL });
-  //   })
-  //   .catch((e) => console.log(e));
+  ShortenURL.create({ ori_url, path })
+    .then(() => {
+      res.render("index", { newURL });
+    })
+    .catch((e) => console.log(e));
 });
 
 //監聽伺服器
