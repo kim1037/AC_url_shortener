@@ -1,11 +1,10 @@
-<form action="/" method="POST">
+<form action="/shorten" method="POST">
   <div class="input-group mb-3">
     <input
       type="url"
       class="form-control"
+      name="originalURL"
       placeholder="enter an url"
-      aria-label="original-url"
-      aria-describedby="convert-btn"
     />
     <button
       class="btn btn-outline-secondary"
@@ -15,4 +14,4 @@
   </div>
 </form>
 
-{{#if code}}Post test :{{code}}{{/if}}
+{{#if newURL}}Post test :{{newURL}}{{/if}}
