@@ -2,26 +2,34 @@
   action="/"
   method="POST"
   id="inputUrlForm"
-  class="needs-validation was-validated"
+  class="row needs-validation was-validated"
   novalidate
 >
-  <label for="ori-url">Original URL : </label>
-  <div class="hstack gap-3">
-    <input
-      class="form-control me-auto"
-      type="url"
-      placeholder="Enter an URL here"
-      name="originalURL"
-      value="{{ori_url}}"
-      id="ori-url"
-      required
-    />
-    <button
-      type="submit"
-      class="btn btn-info"
-      id="convert-btn"
-    >Convert</button>
+  <div class="row align-items-center">
+    <label for="ori-url">Original URL : </label>
   </div>
+  <div class="row mt-2">
+    <div class="col-11 "><input
+        class="form-control me-auto"
+        type="url"
+        placeholder="Enter an URL here"
+        name="originalURL"
+        value="{{ori_url}}"
+        id="ori-url"
+        required
+      />
+      <div class="invalid-feedback">Please enter an url.</div></div>
+    <div class="col-1 ">
+      <button
+        type="submit"
+        class="btn btn-info"
+        id="convert-btn"
+      >Convert</button></div>
+  </div>
+  <div class="hstack gap-3">
+
+  </div>
+
 </form>
 
 {{#if new_url}}
