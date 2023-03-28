@@ -32,6 +32,7 @@ db.once("open", () => {
 app.engine("hbs", exphbs({ defaultLayout: "main", extname: "hbs" }));
 app.set("view engine", "hbs");
 
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 //設定路由
@@ -42,12 +43,14 @@ app.get("/", (req, res) => {
 //轉換按鈕
 app.post("/shorten", (req, res) => {
   const ori_url = req.body.originalURL;
-  const path = generateShortCode();
+  let path = generateShortCode();
   const new_url = SERVER + path;
-  ShortenURL.findOne({ ori_url }).then((url) => {
-    if (url) {
+
+  // 先查詢是否已經存在相同的 ori_url
+  ShortenURL.findOne({ ori_url }).then((data) => {
+    if (data) {
       //若已經存在相同的 ori_url，回傳該筆資料
-      res.render("index", { new_url: url.new_url, ori_url: url.ori_url });
+      res.render("index", { new_url: data.new_url, ori_url: data.ori_url });
     } else {
       //如果不存在，則創立一個新的
       ShortenURL.create({ ori_url, path, new_url })

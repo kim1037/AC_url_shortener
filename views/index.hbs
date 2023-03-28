@@ -1,4 +1,5 @@
 <form action="/shorten" method="POST">
+  <label for="ori-url">Original URL : </label>
   <div class="input-group mb-3">
     <input
       type="url"
@@ -6,6 +7,7 @@
       name="originalURL"
       placeholder="enter an url"
       value="{{ori_url}}"
+      id="ori-url"
       required
     />
     <button
@@ -29,7 +31,11 @@
     <button
       class="btn btn-outline-secondary"
       type="button"
-      id="button-addon2"
+      id="copy-btn"
     >Copy</button>
   </div>
 {{/if}}
+
+<div class="alert alert-success copy-message-hide" id="copy-message" role="alert">The new URL has been copied to the
+  clipboard.
+</div>
