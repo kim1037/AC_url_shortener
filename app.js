@@ -3,6 +3,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const generateShortCode = require("./shortcode_generate");
+const generateQRCodeURL = require("./qrcode_generate")
 const ShortenURL = require("./models/shortenURL");
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -45,17 +46,22 @@ app.post("/shorten", (req, res) => {
   const ori_url = req.body.originalURL;
   let path = generateShortCode();
   const new_url = SERVER + path;
+  const qrCode = generateQRCodeURL(ori_url)
 
   // 先查詢是否已經存在相同的 ori_url
   ShortenURL.findOne({ ori_url }).then((data) => {
     if (data) {
       //若已經存在相同的 ori_url，回傳該筆資料
-      res.render("index", { new_url: data.new_url, ori_url: data.ori_url });
+      res.render("index", {
+        new_url: data.new_url,
+        ori_url: data.ori_url,
+        qrCode,
+      });
     } else {
       //如果不存在，則創立一個新的
       ShortenURL.create({ ori_url, path, new_url })
         .then(() => {
-          res.render("index", { ori_url, new_url });
+          res.render("index", { ori_url, new_url, qrCode });
         })
         .catch((e) => console.log(e));
     }
