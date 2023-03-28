@@ -1,18 +1,24 @@
-<form action="/shorten" method="POST">
+<form
+  action="/shorten"
+  method="POST"
+  id="inputUrlForm"
+  class="needs-validation was-validated"
+  novalidate
+>
   <label for="ori-url">Original URL : </label>
-  <div class="input-group mb-3">
+  <div class="hstack gap-3">
     <input
+      class="form-control me-auto"
       type="url"
-      class="form-control"
+      placeholder="Enter an URL here"
       name="originalURL"
-      placeholder="enter an url"
       value="{{ori_url}}"
       id="ori-url"
       required
     />
     <button
-      class="btn btn-outline-secondary"
       type="submit"
+      class="btn btn-info"
       id="convert-btn"
     >Convert</button>
   </div>
@@ -29,17 +35,22 @@
       disabled
     />
     <button
-      class="btn btn-outline-secondary"
+      class="btn btn-outline-info"
       type="button"
       id="copy-btn"
     >Copy</button>
   </div>
-  <img src="{{qrCode}}" alt="" />
-{{/if}}
+  <div
+    class="alert alert-success copy-message-hide"
+    id="copy-message"
+    role="alert"
+  >The new URL has been copied to the clipboard.
+  </div>
+  <div class="card" style="width: 14rem;">
+    <div class="card-body d-flex flex-column align-items-center">
+      <h5 class="card-title">QR Code:</h5>
+      <img src="{{qrCode}}" alt="" />
+    </div>
+  </div>
 
-<div
-  class="alert alert-success copy-message-hide"
-  id="copy-message"
-  role="alert"
->The new URL has been copied to the clipboard.
-</div>
+{{/if}}
