@@ -4,7 +4,7 @@
 
 ## Screenshot - 畫面截圖
 
-![image](https://user-images.githubusercontent.com/107454420/228174043-58f9ab86-17a1-4498-89b0-426270f32678.png)
+![image](https://user-images.githubusercontent.com/107454420/228463132-71dcfe79-91ae-4bad-9c9a-ebe28873d100.png)
 
 ## Features - 功能
 
