@@ -11,9 +11,22 @@ copyBtn.addEventListener("click", function onCopyBtnClicked(event) {
   });
 });
 
-const convertButton = document.querySelector("#convert-btn");
-const form = document.querySelector("#inputUrlForm ");
-convertButton.addEventListener("click", function onConvertButtonClicked(event) {
-  form.classList.add("was-validated");
-  console.log(form.innerHTML)
-}); 
+//QR code下載
+function downloadQRCode() {
+  const qrCodeImage = document.getElementById("qr-code");
+  let canvas = document.createElement("canvas");
+  let context = canvas.getContext("2d");
+  let img = document.createElement("img");
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    context.drawImage(img, 0, 0);
+    const url = canvas.toDataURL()
+    const a = document.createElement("a");
+    a.href = url
+    a.download = 'QR-Code.png'
+    a.click()
+  };
+  img.crossOrigin='anonymous'
+  img.src = qrCodeImage.src;
+}
