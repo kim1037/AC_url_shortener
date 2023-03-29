@@ -4,6 +4,8 @@ const router = express.Router();
 const ShortenURL = require("../../models/shortenURL");
 const generateShortCode = require("../../shortcode_generate");
 const generateQRCodeURL = require("../../qrcode_generate");
+const urlExistSync = require("url-exist-sync");
+
 const PORT = process.env.PORT || 3000;
 const SERVER = `http://localhost:${PORT}/`;
 
@@ -18,6 +20,13 @@ router.post("/", (req, res) => {
   let path = generateShortCode();
   const new_url = SERVER + path;
   const qrCode = generateQRCodeURL(ori_url);
+  let urlNotExists = urlExistSync(ori_url); //T or F
+
+  if (!urlNotExists) {
+    //如果url不存在, 顯示錯誤訊息
+    urlNotExists = true;
+    return res.render("index", { ori_url, urlNotExists });
+  }
   // 用遞迴函式來檢查是否有重複的5碼
   function checkPath() {
     ShortenURL.exists({ path }).then((result) => {

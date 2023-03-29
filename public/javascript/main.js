@@ -10,3 +10,10 @@ copyBtn.addEventListener("click", function onCopyBtnClicked(event) {
       .classList.remove("copy-message-hide");
   });
 });
+
+const convertButton = document.querySelector("#convert-btn");
+const form = document.querySelector("#inputUrlForm ");
+convertButton.addEventListener("click", function onConvertButtonClicked(event) {
+  form.classList.add("was-validated");
+  console.log(form.innerHTML)
+}); 

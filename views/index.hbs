@@ -9,7 +9,7 @@
     <label for="ori-url">Original URL : </label>
   </div>
   <div class="row mt-2">
-    <div class="col-11 "><input
+    <div class="col-11"><input
         class="form-control me-auto"
         type="url"
         placeholder="Enter an URL here"
@@ -19,7 +19,7 @@
         required
       />
       <div class="invalid-feedback">Please enter an url.</div></div>
-    <div class="col-1 ">
+    <div class="col-1">
       <button
         type="submit"
         class="btn btn-info"
@@ -29,8 +29,11 @@
   <div class="hstack gap-3">
 
   </div>
-
 </form>
+
+{{#if urlNotExists}}
+  <p class="font-monospace text-danger">The url doesn't exsit. Please try it again.</p>
+{{/if}}
 
 {{#if new_url}}
   <label for="new-url">New URL : </label>
